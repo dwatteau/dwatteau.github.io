@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Fixing the corrupted EGA files from the Limited Run Games set of Monkey Island</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+	dt { font-weight: bold; }
+	.text-center { text-align: center; }
+	.break-long-text { word-break: break-all; }
+	img { width: auto; max-width: 100%; }
+	</style>
+	<link rel="canonical" href="https://dwatteau.github.io/scummfixes/corrupted-monkey1-ega-files-limitedrungames.html" />
+</head>
+<body>
+
+<article itemscope="itemscope" itemtype="https://schema.org/TechArticle">
+
+<header class="text-center">
+	<h1 itemprop="name">Fixing the corrupted <abbr title="Enhanced Graphics Adapter">EGA</abbr> files from the Limited Run Games set of Monkey Island</h1>
+	<time itemprop="datePublished" datetime="2022-01-02">January 2nd, 2022</time>
+</header>
+
+<div role="main">
+<section id="context">
+<h2>Context</h2>
+
+<p itemprop="headline">In late 2021, Limited Run Games released the <a href="https://limitedrungames.com/products/monkey-island-30th-anniversary-anthology-pc">Monkey Island 30th Anniversary Anthology</a>. It includes a USB stick with various “retro versions”, such as the original EGA version of <cite>The Secret of Monkey Island</cite> (from original 5¼-inch floppy disks). Unfortunately, it used a corrupted fourth disk, so the game would crash very early on. Fortunately, Limited Run Games also included some archival “Flux Streams”, so it's possible to recover a working fourth disk and game. This guide is here to help you fix this. <b>Warning:</b> this requires some technical knowledge in command-line prompts.</p>
+
+<p>But before you go any further… please read this <abbr title="Frequently Asked Questions">FAQ</abbr>:</p>
+
+<dl>
+	<dt>Are other game versions from the Limited Run Games set corrupted as well?</dt>
+	<dd>I'm not aware of problems with the other retro versions (including the Atari or Macintosh ones) but I haven't tested them thoroughly yet. I'll update this page if necessary.</dd>
+
+	<dt>This guide is a bit complicated. Can you just send me the non-corrupted files?</dt>
+	<dd>No, the files are copyrighted so I'm not allowed to do this. Please try <a href="https://support.limitedrungames.com">contacting the Limited Run Games support</a> (with your order number) about this.</dd>
+
+	<dt>I'd like to have this version of the game, but I haven't bought the Limited Run Games set. Can you send me the game?</dt>
+	<dd>No! Don't even bother contacting me about this.</dd>
+</dl>
+</section>
+
+<section id="problem">
+<h2>The corrupted disk from the Limited Run Games version of MONKEY1-EGA</h2>
+
+<p>The Limited Run Games set contains a USB stick with the various Monkey Island games. A <samp>_Retro Backups</samp> directory is also included, with some earlier floppy disk versions of MONKEY1 and MONKEY2. They are “raw” floppy images (archived in various formats), which means that you can play them on an original MS-DOS, Amiga or Macintosh computer, or through an emulator for these systems, or with <a href="https://www.scummvm.org">ScummVM</a>.</p>
+
+<p>But, since they're raw images, you'll need a bit of effort to extract their content in order to use them (they won't work out of the box by double-clicking on them on a modern device). For MONKEY1-EGA, this should be easy, though:</p>
+
+<ol>
+	<li>Plug your Limited Run Games USB stick.<ul>
+		<li><b>Highly suggested:</b> make a full backup of it!</li>
+	</ul></li>
+	<li>Go to the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> directory, and copy all the <samp>.img</samp> file to your Desktop.</li>
+	<li>Go to your Desktop, and double-click on all the eight <samp>.img</samp> files. Your system should <i>mount</i> them, which means that it will display their content as if you were using the original floppies.</li>
+	<li>Copy everything you see inside them, and paste this to a new <samp>MONKEY1-EGA</samp> directory on your system.
+	<ul>
+		<li>You should now have the following set of files: <samp>000.LFL</samp>, <samp>901.LFL</samp> to <samp>904.LFL</samp>, <samp>DISK01.LEC</samp> to <samp>DISK08.LEC</samp> and <samp>MONKEY.EXE</samp>.</li>
+		<li>(You can ignore the <samp>INSTALL.BAT</samp> files, which are useless here.)</li>
+	</ul></li>
+	<li>Install <a href="https://www.scummvm.org/downloads/">ScummVM for your system</a>, click on the Add button, and select the directory where you've put the files above.</li>
+	<li>Click Play, grab your original Dial-A-Pirate code wheel from your set, type in the right date and enjoy your game… for just a few scenes.</li>
+</ol>
+
+<p>Indeed, once you try exploring Mêlée Island, the game will crash:</p>
+
+<figure class="text-center">
+	<img src="img/mi1ega-limitedrungames-corruption-error-room-85.png" alt="Room 85 missing object code block(s) error in the Limited Run Games edition of Monkey Island 1 (EGA)" itemprop="image" />
+	<figcaption>MONKEY1-EGA crash when trying to do to the Mêlée Island map</figcaption>
+</figure>
+
+<p>Possible error messages are "<samp>ERROR: Room 85 missing object code block(s)!</samp>" (ScummVM) or "<samp>#27 No object code block in room 85</samp>" (DOS or DOSBox).</p>
+
+<p>This is not a bug, but a problem with the <samp>903.LFL</samp> and <samp>DISK04.LEC</samp> files provided by Limited Run Games for the MONKEY1-EGA version. It appears that they come from a faulty floppy disk dump.</p>
+
+<p>Fortunately, there's a way to fix this, if you know how to use a command-line prompt.</p>
+</section>
+
+<section id="solution">
+<h2>Restoring a functional Disk 4 from the KryoFlux dumps</h2>
+
+<p>Next to the <samp>.img</samp> files, the USB stick also includes some <a href="https://kryoflux.com">KryoFlux</a> raw streams. The KryoFlux is a device which can dump floppy disks with way more accuracy than a regular floppy disk drive. This is especially important for <a href="https://www.pixelatedarcade.com/covers/1586">30-year-old 5¼-inch floppy disks</a>, which are very fragile.</p>
+
+<p>It appears that Limited Run Games used several dump methods (which is very nice from an archivist point of view), and that the KryoFlux dumps don't have the corruption problems of the raw <samp>.img</samp> dumps.</p>
+
+<p>So, it is possible to restore a functional Disk 4 from these (although it requires even more work from the end costumer…), following these steps:</p>
+
+<ol>
+	<li>Go to the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> &gt; <strong><samp>Flux Streams</samp></strong> directory, and copy the whole <samp>mi1_dos_525_disk4</samp> directory to your Desktop.<ul>
+		<li>Warning: the KryoFlux dumps are way bigger than the raw <samp>.img</samp> files.</li>
+	</ul></li>
+	<li>Download and install the <a href="https://kryoflux.com/?page=download">KryoFlux Host Software</a> for your system.<ul>
+		<li>Note: this program is “free for private and personal use only”. Only use it in accordance with their licence.</li>
+	</ul></li>
+	<li>Once installed, a <samp>dtc</samp> utility should be available on your system. This is what we're going to use to rebuild a non-corrupted Disk 4 image.</li>
+	<li>Open a command-line prompt on your system:<ul>
+		<li>Windows: type the <kbd>Windows</kbd> and <kbd>R</kbd> keys on your keyboard, and then type <kbd>cmd</kbd></li>
+		<li>macOS: type the <kbd>⌘</kbd> and <kbd>Spacebar</kbd> keys, and then type <kbd>Terminal</kbd></li>
+		<li>Linux: look for a “Terminal“ program.</li>
+	</ul></li>
+	<li>In the command-line prompt, go to your desktop (for example with: <kbd>cd Desktop</kbd>).</li>
+	<li>Then, construct a new <samp>newdisk4.img</samp> file with the following command:<ul>
+		<li><kbd style="white-space: nowrap">dtc -ftrack00.0.raw -i0 -k2 -fnewdisk4.img -i4 -m1 -l1</kbd></li>
+	</ul></li>
+</ol>
+
+<details>
+	<summary>(Click here if you want to know more about the magical <kbd>dtc</kbd> line)</summary>
+	<ul>
+		<li><kbd>-ftrack00.0.raw</kbd>: work from the <samp>track00.0.raw</samp> file of Disk 4</li>
+		<li><kbd>-i0</kbd>: input file is a KryoFlux raw stream</li>
+		<li><kbd>-k2</kbd>: interpret the input in 40-track/side format (instead of default 80-track), since it comes from a Double Density 5¼-inch floppy disk.</li>
+		<li><kbd>-fnewdisk4.img</kbd>: output the result in a <samp>newdisk4.img</samp> file.</li>
+		<li><kbd>-i4</kbd>: output file should be in IBM PC MFM format.</li>
+		<li><kbd>-m1</kbd>: operate from a set of local files, instead of a KryoFlux physical device.</li>
+		<li><kbd>-l1</kbd>: let the tool just print fatal errors.</li>
+	</ul>
+</details>
+
+<p>You can now double-click on the newly produced <samp>newdisk4.img</samp> file, copy <strong>both</strong> the <samp>903.LFL</samp> and <samp>DISK04.LEC</samp> files from it, and paste them onto your previous game files. You should now have a functional version of MONKEY1-EGA!</p>
+</section>
+</div>
+
+<article id="bonus-roland-update">
+<h2>Bonus: adding the missing Roland Update</h2>
+
+<p>Back in 1990, Lucasfilm Games saved a floppy disk by omitting support for Roland MT-32 music and sounds from the retail EGA version of <cite>The Secret of Monkey Island</cite>. Customers could buy it as a supplemental disk from Lucasfilm Games and, later on, as a free patch from their official website.</p>
+
+<p>All that's required is the <samp>DISK09.LEC</samp> file from this disk/patch, but Limited Run Games didn't include it in its set.</p>
+
+<p>Thankfully, Disney (which is now the owner of the Lucasfilm Games IP) still hosts <a href="https://appsupport.disney.com/hc/en-us/articles/360000760746-Where-can-I-find-updates-and-patches-for-Lucasfilm-games-">this patch on its support site</a> as of 2022, so you can legally add it to your game.</p>
+
+<p>For this (note that this only targets MONKEY1-EGA):</p>
+
+<ul>
+	<li>Download the <samp>Monkeyup.exe</samp> patch from <a class="break-long-text" href="http://static.dolimg.com/mh_netstorage/lucasfilm/patches/pc/Monkeyup.exe">http://static.dolimg.com/mh_netstorage/lucasfilm/patches/pc/Monkeyup.exe</a> (as officially hosted and provided by Disney).</li>
+	<li>Extract the contents of <samp>Monkeyup.exe</samp> with 7-Zip or a similar tool (yes, it's actually a ZIP file and not a “real” EXE file). This outputs a <samp>DISK09.LEC</samp> file.</li>
+	<li>Add this <samp>DISK09.LEC</samp> file to the directory containing your other MONKEY1-EGA files.</li>
+	<li>Start the game again from ScummVM (or with the undocumented <kbd>MONKEY.EXE r</kbd> switch for DOS or DOSBox).</li>
+	<li>Enjoy the Roland MT-32 music and effects.</li>
+</ul>
+</article>
+
+<footer id="sources" role="contentinfo">
+<h2>Sources</h2>
+
+<p>Helpful links in the creation of this guide:</p>
+
+<ul>
+	<li itemprop="citation"><a class="break-long-text" href="https://github.com/archivistsguidetokryoflux/archivists-guide-to-kryoflux/blob/master/1%20PART%20ONE%20Getting%20Started/1.2%20USING%20THE%20KRYOFLUX/readme.md#command-line-examples">https://github.com/archivistsguidetokryoflux/archivists-guide-to-kryoflux</a></li>
+	<li itemprop="citation"><a class="break-long-text" href="https://en.wikipedia.org/wiki/List_of_floppy_disk_formats#Logical_formats">https://en.wikipedia.org/wiki/List_of_floppy_disk_formats#Logical_formats</a></li>
+</ul>
+</footer>
+
+</article>
+
+</body>
+</html>
