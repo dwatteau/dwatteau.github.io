@@ -17,7 +17,7 @@
 <article itemscope="itemscope" itemtype="https://schema.org/TechArticle">
 
 <header class="text-center">
-	<h1 itemprop="name">Fixing the corrupted <abbr title="Enhanced Graphics Adapter">EGA</abbr> files from the Limited Run Games set of Monkey Island</h1>
+	<h1 itemprop="name">Fixing the corrupted EGA files from the Limited Run Games set of Monkey Island</h1>
 	<time itemprop="datePublished" datetime="2022-01-02">January 2nd, 2022</time>
 </header>
 
@@ -27,7 +27,7 @@
 
 <p itemprop="headline">In late 2021, Limited Run Games released the <a href="https://limitedrungames.com/products/monkey-island-30th-anniversary-anthology-pc">Monkey Island 30th Anniversary Anthology</a>. It includes a USB stick with various “retro versions”, such as the original EGA version of <cite>The Secret of Monkey Island</cite> (from original 5¼-inch floppy disks). Unfortunately, it used a corrupted fourth disk, so the game would crash very early on. Fortunately, Limited Run Games also included some archival “Flux Streams”, so it's possible to recover a working fourth disk and game. This guide is here to help you fix this. <b>Warning:</b> this requires some technical knowledge in command-line prompts.</p>
 
-<p>But before you go any further… please read this <abbr title="Frequently Asked Questions">FAQ</abbr>:</p>
+<p>But before you go any further… please read this FAQ:</p>
 
 <dl>
 	<dt>Are other game versions from the Limited Run Games set corrupted as well?</dt>
@@ -52,7 +52,7 @@
 	<li>Plug your Limited Run Games USB stick.<ul>
 		<li><b>Highly suggested:</b> make a full backup of it!</li>
 	</ul></li>
-	<li>Go to the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> directory, and copy all the <samp>.img</samp> file to your Desktop.</li>
+	<li>Go to the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> directory, and copy all the <samp>.img</samp> files to your Desktop.</li>
 	<li>Go to your Desktop, and double-click on all the eight <samp>.img</samp> files. Your system should <i>mount</i> them, which means that it will display their content as if you were using the original floppies.</li>
 	<li>Copy everything you see inside them, and paste this to a new <samp>MONKEY1-EGA</samp> directory on your system.
 	<ul>
@@ -67,7 +67,7 @@
 
 <figure class="text-center">
 	<img src="img/mi1ega-limitedrungames-corruption-error-room-85.png" alt="Room 85 missing object code block(s) error in the Limited Run Games edition of Monkey Island 1 (EGA)" itemprop="image" />
-	<figcaption>MONKEY1-EGA crash when trying to do to the Mêlée Island map</figcaption>
+	<figcaption>MONKEY1-EGA crash when trying to go to the Mêlée Island map</figcaption>
 </figure>
 
 <p>Possible error messages are "<samp>ERROR: Room 85 missing object code block(s)!</samp>" (ScummVM) or "<samp>#27 No object code block in room 85</samp>" (DOS or DOSBox).</p>
