@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://dwatteau.github.io/sitemap.xml
