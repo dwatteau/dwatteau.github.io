@@ -31,7 +31,10 @@
 
 <dl>
 	<dt>Are other game versions from the Limited Run Games set corrupted as well?</dt>
-	<dd>I'm not aware of problems with the other retro versions (including the Atari or Macintosh ones) but I haven't tested them thoroughly yet. I'll update this page if necessary.</dd>
+	<dd>From some limited testing here, the other retro versions are OK (if you know how to extract their content; I might publish a guide about this at some point), although I haven't tested them thoroughly yet.</dd>
+
+	<dt>My Limited Run Games USB stick does not work at all.</dt>
+	<dd>Please <a href="https://support.limitedrungames.com">contact Limited Run Games</a> about this, with your order number. Some people were offered a digital download to work around this problem. If your USB stick <em>does</em> work, I suggest that you make a full backup of it on some other device; better safe than sorry!</dd>
 
 	<dt>This guide is a bit complicated. Can you just send me the non-corrupted files?</dt>
 	<dd>No, the files are copyrighted so I'm not allowed to do this. Please try <a href="https://support.limitedrungames.com">contacting the Limited Run Games support</a> (with your order number) about this.</dd>
@@ -46,7 +49,7 @@
 
 <p>The Limited Run Games set contains a USB stick with the various Monkey Island games. A <samp>_Retro Backups</samp> directory is also included, with some earlier floppy disk versions of MONKEY1 and MONKEY2. They are “raw” floppy images (archived in various formats), which means that you can play them on an original MS-DOS, Amiga or Macintosh computer, or through an emulator for these systems, or with <a href="https://www.scummvm.org">ScummVM</a>.</p>
 
-<p>But, since they're raw images, you'll need a bit of effort to extract their content in order to use them (they won't work out of the box by double-clicking on them on a modern device). For MONKEY1-EGA, this should be easy, though:</p>
+<p>But, since they're raw images, you'll need a bit of effort to extract their content (they won't work out of the box by double-clicking on them on a modern device). For MONKEY1-EGA, this should be easy, though:</p>
 
 <ol>
 	<li>Plug your Limited Run Games USB stick.<ul>
@@ -106,7 +109,7 @@
 </ol>
 
 <details>
-	<summary>(Click here if you want to know more about the magical <kbd>dtc</kbd> line)</summary>
+	<summary>(Some more details on the <kbd>dtc</kbd> command above)</summary>
 	<ul>
 		<li><kbd>-ftrack00.0.raw</kbd>: work from the <samp>track00.0.raw</samp> file of Disk 4</li>
 		<li><kbd>-i0</kbd>: input file is a KryoFlux raw stream</li>
@@ -114,7 +117,7 @@
 		<li><kbd>-fnewdisk4.img</kbd>: output the result in a <samp>newdisk4.img</samp> file.</li>
 		<li><kbd>-i4</kbd>: output file should be in IBM PC MFM format.</li>
 		<li><kbd>-m1</kbd>: operate from a set of local files, instead of a KryoFlux physical device.</li>
-		<li><kbd>-l1</kbd>: let the tool just print fatal errors.</li>
+		<li><kbd>-l1</kbd>: only show fatal errors, instead of being very verbose.</li>
 	</ul>
 </details>
 
