@@ -1,0 +1,15 @@
+dt { font-weight: bold; }
+h1 { text-align: center; }
+figure img { width: auto; max-width: 100%; }
+.break-long-text { word-break: break-all; }
+.text-center { text-align: center; }
+
+:root { color-scheme: light dark; }
+/* https://github.com/whatwg/html/issues/5426 */
+@supports (color-scheme: dark) {
+	@media (prefers-color-scheme: dark) {
+		:link { color: #5ac8fa; }
+		:visited { color: #d0adf0; }
+		:link:active, :visited:active { color: #ff9e9e; }
+	}
+}
