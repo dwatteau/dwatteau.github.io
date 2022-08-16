@@ -1,5 +1,13 @@
+body {
+	font-family: "Roboto Slab", "ff-tisa-web-pro", "Georgia", Arial, sans-serif;
+}
+
+dd { margin-top: .5em; margin-bottom: .8em; }
 dt { font-weight: bold; }
-h1 { text-align: center; }
+h1 { font-size: 2em; text-align: center; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.1em; }
+li { margin-top: 0.35em; }
 figure img { width: auto; max-width: 100%; }
 .break-long-text { word-break: break-all; }
 .text-center { text-align: center; }
