@@ -21,7 +21,7 @@
 <section id="context">
 <h2>Summary</h2>
 
-<p itemprop="headline">In late 2021, Limited Run Games released the <a href="https://limitedrungames.com/products/monkey-island-30th-anniversary-anthology-pc">Monkey Island 30th Anniversary Anthology</a>. It includes a USB stick with various “retro versions”, such as the original EGA version of <cite>The Secret of Monkey Island</cite> (from original 5¼-inch floppy disks). Unfortunately, it provided some corrupted disk images, so the game could crash very early on. Fortunately, Limited Run Games also included some archival “Flux Streams”, so it's possible to recover valid disk images and play the game. This guide is here to help you <a href="#solution">fix this</a>. <b>Warning:</b> this requires some technical knowledge.</p>
+<p itemprop="headline">In late 2021, Limited Run Games released the <a href="https://limitedrungames.com/products/monkey-island-30th-anniversary-anthology-pc">Monkey Island 30th Anniversary Anthology</a>. It includes a USB stick with various “retro versions”, such as the original EGA version of <cite>The Secret of Monkey Island</cite> (from original 5¼-inch floppy disks). Unfortunately, it provided some corrupted disk images, so the game would trigger weird crashes at various points. Fortunately, Limited Run Games also included some archival “Flux Streams”, so it's possible to recover valid disk images and play the game. This guide is here to help you <a href="#solution">fix this</a>. <b>Warning:</b> this requires some technical knowledge.</p>
 
 <p>But before you go any further… please read this FAQ:</p>
 
@@ -124,15 +124,15 @@
 	</ul></li>
 	<li>In the command-line prompt, go to your desktop (for example with: <kbd>cd Desktop</kbd>).</li>
 	<li>Then, construct new <samp>newdisk3.img</samp> and <samp>newdisk4.img</samp> files with the following commands:<ul>
-		<li><kbd style="white-space: nowrap">dtc -ftrack00.0.raw -i0 -k2 -fnewdisk3.img -i4 -m1 -l1</kbd></li>
-		<li><kbd style="white-space: nowrap">dtc -ftrack00.0.raw -i0 -k2 -fnewdisk4.img -i4 -m1 -l1</kbd></li>
+		<li><kbd style="white-space: nowrap">dtc -fmi1_dos_525_disk3/track00.0.raw -i0 -k2 -fnewdisk3.img -i4 -m1 -l1</kbd></li>
+		<li><kbd style="white-space: nowrap">dtc -fmi1_dos_525_disk4/track00.0.raw -i0 -k2 -fnewdisk4.img -i4 -m1 -l1</kbd></li>
 	</ul></li>
 </ol>
 
 <details>
 	<summary>(Some more details on the <kbd>dtc</kbd> commands above, if you're curious)</summary>
 	<ul>
-		<li><kbd>-ftrack00.0.raw</kbd>: work from the <samp>track00.0.raw</samp> file of Disk 3 or 4</li>
+		<li><kbd>-fpath/to/track00.0.raw</kbd>: work from the <samp>path/to/track00.0.raw</samp> file of Disk 3 or 4</li>
 		<li><kbd>-i0</kbd>: input file is a KryoFlux raw stream</li>
 		<li><kbd>-k2</kbd>: interpret the input in 40-track/side format (instead of default 80-track), since it comes from a Double Density 5¼-inch floppy disk.</li>
 		<li><kbd>-fnewdiskXXX.img</kbd>: output the result in a <samp>newdiskXXX.img</samp> file.</li>
