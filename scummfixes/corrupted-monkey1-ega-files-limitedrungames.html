@@ -14,14 +14,14 @@
 <header class="text-center">
 	<h1 itemprop="name">Fixing the corrupted EGA files from the Limited Run Games set of Monkey Island</h1>
 	<time itemprop="datePublished" datetime="2022-01-02">January 2nd, 2022</time><br />
-	<time itemprop="dateModified" datetime="2022-08-16">Last revision: August 16, 2022</time>
+	<time itemprop="dateModified" datetime="2023-06-11">Last revision: June 11, 2023</time>
 </header>
 
 <div role="main">
 <section id="context">
 <h2>Summary</h2>
 
-<p itemprop="headline">In late 2021, Limited Run Games released the <a href="https://limitedrungames.com/products/monkey-island-30th-anniversary-anthology-pc">Monkey Island 30th Anniversary Anthology</a>. It includes a USB stick with various “retro versions”, such as the original EGA version of <cite>The Secret of Monkey Island</cite> (from original 5¼-inch floppy disks). Unfortunately, it used a corrupted fourth disk, so the game would crash very early on. Fortunately, Limited Run Games also included some archival “Flux Streams”, so it's possible to recover a working fourth disk and game. This guide is here to help you <a href="#solution">fix this</a>. <b>Warning:</b> this requires some technical knowledge.</p>
+<p itemprop="headline">In late 2021, Limited Run Games released the <a href="https://limitedrungames.com/products/monkey-island-30th-anniversary-anthology-pc">Monkey Island 30th Anniversary Anthology</a>. It includes a USB stick with various “retro versions”, such as the original EGA version of <cite>The Secret of Monkey Island</cite> (from original 5¼-inch floppy disks). Unfortunately, it provided some corrupted disk images, so the game could crash very early on. Fortunately, Limited Run Games also included some archival “Flux Streams”, so it's possible to recover valid disk images and play the game. This guide is here to help you <a href="#solution">fix this</a>. <b>Warning:</b> this requires some technical knowledge.</p>
 
 <p>But before you go any further… please read this FAQ:</p>
 
@@ -81,7 +81,7 @@
 
 <p>Possible error messages are "<samp>ERROR: Room 85 missing object code block(s)!</samp>" (in ScummVM) or "<samp>#27 No object code block in room 85</samp>" (DOS or DOSBox).</p>
 
-<p>This is because the <samp>903.LFL</samp> and <samp>DISK04.LEC</samp> files are corrupted. It appears that they come from a faulty floppy disk dump.</p>
+<p>This is because the <samp>903.LFL</samp>, <samp>DISK03.LEC</samp> and <samp>DISK04.LEC</samp> files are corrupted. It appears that they come from faulty floppy disk dumps.</p>
 
 <p>Fortunately, there's a way to fix this…</p>
 </section>
@@ -99,18 +99,18 @@
 
 <ol>
 	<li><a href="https://raw.githubusercontent.com/dwatteau/sometools/main/repair-disk4-monkey1-lrg/repair-disk4-monkey1-lrg.bat">Download this script</a> and put it in some folder on your computer.</li>
-	<li>Copy the content of the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> &gt; <samp>Flux Streams</samp> &gt; <samp>mi1_dos_525_disk4/</samp> directory (from the Limited Run Games USB stick), and paste it in the same directory as the <samp>repair-disk4-monkey1-lrg.bat</samp> script you've just downloaded.
+	<li>Copy the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> &gt; <samp>Flux Streams</samp> &gt; <samp>mi1_dos_525_disk3/</samp> and <samp>mi1_dos_525_disk4/</samp> directories (from the Limited Run Games USB stick), and paste them in the same directory as the <samp>repair-disk4-monkey1-lrg.bat</samp> script you've just downloaded.
 	<li>Double-click on that script.</li>
 </ol>
 
-<p>If all goes well, a new <samp>newdisk4.img</samp> file should appear; extract it with 7-Zip and you now have the fixed <samp>903.LFL</samp> and <samp>DISK04.LEC</samp> files. Drop them in your MONKEY1-EGA game folder and it should now properly work!</p>
+<p>If all goes well, new <samp>newdisk3.img</samp> and <samp>newdisk4.img</samp> files should appear; extract them with 7-Zip and you now have the fixed <samp>903.LFL</samp>, <samp>DISK03.LEC</samp> and <samp>DISK04.LEC</samp> files. Drop them in your MONKEY1-EGA game folder and it should now properly work!</p>
 
 <h3>Other systems</h3>
 
 <p>On other systems, follow these steps:</p>
 
 <ol>
-	<li>Go to the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> &gt; <b><samp>Flux Streams</samp></b> directory, and copy all the files inside the <samp>mi1_dos_525_disk4/</samp> directory to your Desktop.<ul>
+	<li>Go to the <samp>_Retro Backups</samp> &gt; <samp>Monkey Island 1</samp> &gt; <samp>MS DOS 5.25</samp> &gt; <b><samp>Flux Streams</samp></b> directory, and the <samp>mi1_dos_525_disk3/</samp> and <samp>mi1_dos_525_disk4/</samp> directories to your Desktop.<ul>
 		<li>Warning: the KryoFlux dumps are way bigger than the raw <samp>.img</samp> files.</li>
 	</ul></li>
 	<li>Download the <a href="https://kryoflux.com/?page=download">KryoFlux Host Software</a> for your system.<ul>
@@ -123,25 +123,26 @@
 		<li>Linux: look for a “Terminal“ program.</li>
 	</ul></li>
 	<li>In the command-line prompt, go to your desktop (for example with: <kbd>cd Desktop</kbd>).</li>
-	<li>Then, construct a new <samp>newdisk4.img</samp> file with the following command:<ul>
+	<li>Then, construct new <samp>newdisk3.img</samp> and <samp>newdisk4.img</samp> files with the following commands:<ul>
+		<li><kbd style="white-space: nowrap">dtc -ftrack00.0.raw -i0 -k2 -fnewdisk3.img -i4 -m1 -l1</kbd></li>
 		<li><kbd style="white-space: nowrap">dtc -ftrack00.0.raw -i0 -k2 -fnewdisk4.img -i4 -m1 -l1</kbd></li>
 	</ul></li>
 </ol>
 
 <details>
-	<summary>(Some more details on the <kbd>dtc</kbd> command above, if you're curious)</summary>
+	<summary>(Some more details on the <kbd>dtc</kbd> commands above, if you're curious)</summary>
 	<ul>
-		<li><kbd>-ftrack00.0.raw</kbd>: work from the <samp>track00.0.raw</samp> file of Disk 4</li>
+		<li><kbd>-ftrack00.0.raw</kbd>: work from the <samp>track00.0.raw</samp> file of Disk 3 or 4</li>
 		<li><kbd>-i0</kbd>: input file is a KryoFlux raw stream</li>
 		<li><kbd>-k2</kbd>: interpret the input in 40-track/side format (instead of default 80-track), since it comes from a Double Density 5¼-inch floppy disk.</li>
-		<li><kbd>-fnewdisk4.img</kbd>: output the result in a <samp>newdisk4.img</samp> file.</li>
+		<li><kbd>-fnewdiskXXX.img</kbd>: output the result in a <samp>newdiskXXX.img</samp> file.</li>
 		<li><kbd>-i4</kbd>: output file should be in IBM PC MFM format.</li>
 		<li><kbd>-m1</kbd>: operate from a set of local files, instead of a KryoFlux physical device.</li>
 		<li><kbd>-l1</kbd>: only show fatal errors, instead of being very verbose.</li>
 	</ul>
 </details>
 
-<p>You can now double-click on the newly produced <samp>newdisk4.img</samp> file (or extract its content with 7-Zip), copy <strong>both</strong> the <samp>903.LFL</samp> and <samp>DISK04.LEC</samp> files from it, and paste them onto your previous game files. You should now have a functional version of MONKEY1-EGA!</p>
+<p>You can now double-click on the newly produced <samp>newdisk3.img</samp> and <samp>newdisk4.img</samp> files (or extract their content with 7-Zip), copy the <samp>903.LFL</samp>, <samp>DISK03.LEC</samp> and <samp>DISK04.LEC</samp> files from them, and paste them onto your previous game files. You should now have a functional version of MONKEY1-EGA!</p>
 </section>
 </div>
 
@@ -174,6 +175,8 @@
 	<li itemprop="citation"><a class="break-long-text" href="https://github.com/archivistsguidetokryoflux/archivists-guide-to-kryoflux/blob/master/1%20PART%20ONE%20Getting%20Started/1.2%20USING%20THE%20KRYOFLUX/readme.md#command-line-examples">https://github.com/archivistsguidetokryoflux/archivists-guide-to-kryoflux</a></li>
 	<li itemprop="citation"><a class="break-long-text" href="https://en.wikipedia.org/wiki/List_of_floppy_disk_formats#Logical_formats">https://en.wikipedia.org/wiki/List_of_floppy_disk_formats#Logical_formats</a></li>
 </ul>
+
+<p>I would also like to thank <i>Bartman3010</i> for <a href="https://bugs.scummvm.org/ticket/14500">reporting on the ScummVM bugtracker</a> that the <samp>DISK03.LEC</samp> file was also corrupted, since this release also has some fatal issues near the very end of the game because of other corrupted content at the Mêlée Island Church.</p>
 </footer>
 
 </article>
